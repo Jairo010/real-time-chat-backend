@@ -10,7 +10,7 @@ export async function getAllConversations() {
     try {
         const conversationsData = await conversationCollection.find().toArray();
         if (conversationsData.length === 0) {
-            return { message: 'No conversations found' };
+            return { message: 'No conversations found', status: false };
         }
 
         const conversations = conversationsData.map(conversationModelG);
@@ -26,7 +26,7 @@ export async function getConversationById(id) {
     try {
         const conversationData = await conversationCollection.findOne({ _id: ObjectId.createFromHexString(id) });
         if (!conversationData) {
-            return { message: 'No conversation found' };
+            return { message: `No conversation found with id: ${id}` , status: false };
         }
 
         return conversationModelG(conversationData);
@@ -41,7 +41,7 @@ export async function createConversation(conversationData) {
         const sender = await usersCollection.findOne({ _id: ObjectId.createFromHexString(conversationData.sender_id) });
         const receiver = await usersCollection.findOne({ _id: ObjectId.createFromHexString(conversationData.receiver_id) });
         if (!sender || !receiver) {
-            return { message: 'User does not exist', status: false };
+            return { message: `Some user does not exist with ids: ${conversationData.sender_id} and ${conversationData.receiver_id}` , status: false };
         }
         const conversationExistsBySender = await conversationCollection.findOne({ sender_id: ObjectId.createFromHexString(conversationData.sender_id), receiver_id: ObjectId.createFromHexString(conversationData.receiver_id) });
         const conversationExistsByReceiver = await conversationCollection.findOne({ sender_id: ObjectId.createFromHexString(conversationData.receiver_id), receiver_id: ObjectId.createFromHexString(conversationData.sender_id) });
@@ -74,13 +74,13 @@ export async function updateConversation(conversationData) {
         const sender = await usersCollection.findOne({ _id: ObjectId.createFromHexString(conversationData.sender_id) });
         const receiver = await usersCollection.findOne({ _id: ObjectId.createFromHexString(conversationData.receiver_id) });
         if (!sender || !receiver) {
-            return { message: 'User does not exist', status: false };
+            return { message: `Some user does not exist with ids: ${conversationData.sender_id} and ${conversationData.receiver_id}`, status: false };
         }
         conversationData.sender_name = sender.name;
         conversationData.receiver_name = receiver.name;
         const conversation = await conversationCollection.findOne({ _id: ObjectId.createFromHexString(conversationData.id) });
         if (!conversation) {
-            return { message: 'Conversation does not exist', status: false };
+            return { message: `Conversation does not exist with id: ${conversationData.id}` , status: false };
         }
         const result = await conversationCollection.updateOne({ _id: conversation._id }, { $set: conversationModelC(conversationData) });
         
@@ -98,7 +98,7 @@ export async function deleteConversation(id) {
     try {
         const conversation = await conversationCollection.findOne({ _id: ObjectId.createFromHexString(id) });
         if (!conversation) {
-            return { message: 'Conversation does not exist', status: false };
+            return { message: `Conversation does not exist with id: ${id}`, status: false };
         }
         const result = await conversationCollection.deleteOne({ _id: conversation._id });
         if (result.deletedCount === 0) {
