@@ -56,7 +56,7 @@ export async function updateChats(req, res) {
     }
 }
 
-export async function deleteChatas(req, res) {
+export async function deleteChats(req, res) {
     const chatId = req.body.id;
     try {
         const chat = await deleteChat(chatId);
