@@ -9,7 +9,7 @@ export async function getAllUsers() {
     try {
         const usersData = await userCollection.find().toArray();
         if (usersData.length === 0) {
-            return { message: 'No users found' };
+            return { message: 'No users found', status: false };
         } else {
             const users = usersData.map(userModelGU);
             return users;
@@ -24,7 +24,7 @@ export async function getUserById(id) {
     try {
         const userData = await userCollection.findOne({ _id: ObjectId.createFromHexString(id) });
         if (!userData) {
-            return { message: 'No user found' };
+            return { message: `No user found with id: ${id}` , status: false};
         } else {
             return userModelGU(userData);
         }
@@ -51,7 +51,7 @@ export async function updateUser(userData) {
     try {
         const user = await userCollection.findOne({ _id: ObjectId.createFromHexString(userData.id) });
         if (!user) {
-            return { message: 'User does not exist', status: false };
+            return { message: `User does not exist with id: ${userData.id}` , status: false };
         }
         const result = await userCollection.updateOne({ _id: user._id }, { $set: userModelC(userData) });
         if (result.modifiedCount === 0) {
@@ -68,7 +68,7 @@ export async function deleteUser(id) {
     try {
         const user = await userCollection.findOne({ _id: ObjectId.createFromHexString(id) });
         if (!user) {
-            return { message: 'User does not exist', status: false };
+            return { message: `User does not exist with id: ${id}` , status: false };
         }
         const result = await userCollection.deleteOne({ _id: user._id });
         if (result.deletedCount === 0) {
