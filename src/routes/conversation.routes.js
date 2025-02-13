@@ -1,7 +1,7 @@
-import {express} from 'express';
+import express from 'express';
 import { createConversations, getConversations, getConversation, updatedConversations, deleteConversations } from '../controllers/conversation.controller.js'
 
-const router = express.Router();
+export const router = express.Router();
 
 //Get Method for conversations
 router.get('/', getConversations);
@@ -17,5 +17,3 @@ router.put('/', updatedConversations);
 
 //DELETR method for conversations
 router.delete('/', deleteConversations);
-
-module.exports = router;

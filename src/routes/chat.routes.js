@@ -1,7 +1,7 @@
-import {express} from 'express';
-import { createChats, getChats, getChat, updateChats, deleteChatas, getChatSender, getChatReceiver, getChatSenderReceiver } from '../controllers/chat.controller.js'
+import express from 'express';
+import { createChats, getChats, getChat, updateChats, deleteChats, getChatSender, getChatReceiver, getChatSenderReceiver } from '../controllers/chat.controller.js'
 
-const router = express.Router();
+export const router = express.Router();
 
 //Get Method for chats
 router.get('/', getChats);
@@ -24,7 +24,5 @@ router.post('/', createChats);
 //PUT method for chats
 router.put('/', updateChats);
 
-//DELETR method for chats
-router.delete('/', deleteChatas);
-
-module.exports = router;
+//DELETE method for chats
+router.delete('/', deleteChats);
