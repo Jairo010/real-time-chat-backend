@@ -1,7 +1,7 @@
-import {express} from 'express';
+import express from 'express';
 import { createUsers, getUsers, getUser, updatedUsers, deleteUsers } from '../controllers/user.controller.js'
 
-const router = express.Router();
+export const router = express.Router();
 
 //Get Method for users
 router.get('/', getUsers);
@@ -17,5 +17,3 @@ router.put('/', updatedUsers);
 
 //DELETR method for users
 router.delete('/', deleteUsers);
-
-module.exports = router;
