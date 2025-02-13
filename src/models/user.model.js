@@ -1,34 +1,24 @@
-const mongo = require('mongoose');
-
-const UserModel = mongo.Schema ({
-    name: {
-        type: String,
-        required: true
-    },
-    lastname: {
-        type: String,
-        required: true
-    },
-    username: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    creatAt: {
-        type: Date,
-        default: Date.now()
+export function userModelC(userData) {
+    return {
+        name: userData.name,
+        lastname: userData.lastname,
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+        createAt: Date.now(),
+        isActive: true
     }
-});
+}
 
-const users = mongo.model('users', UserModel);
-
-module.exports = users;
+export function userModelGU(userData) {
+    return {
+        _id: userData._id,
+        name: userData.name,
+        lastname: userData.lastname,
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+        createAt: userData.createAt,
+        isActive: userData.isActive
+    }
+}

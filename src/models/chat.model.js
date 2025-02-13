@@ -1,27 +1,20 @@
-const mongo = require('mongoose');
-const users = require('./user.model')
+import { ObjectId } from 'mongodb';
 
-const ChatModel = mongo.Schema({
-    message: {
-        type: String,
-        required: true
-    },
-    sender_id: {
-        type: mongo.Schema.Types.ObjectId,
-        ref: 'users',
-        required: true
-    },
-    receiver_id: {
-        type: mongo.Schema.Types.ObjectId,
-        ref: 'users',
-        required: true
-    },
-    date: {
-        type: Date,
-        default: Date.now()
+export function chatModelC(chatData) {
+    return {
+        message: chatData.message,
+        sender_id: ObjectId.createFromHexString(chatData.sender_id),
+        receiver_id: ObjectId.createFromHexString(chatData.receiver_id),
+        date: Date.now()
     }
-});
+}
 
-const chats = mongo.model('chats', ChatModel);
-
-module.exports = chats;
+export function chatModelG(chatData) {
+    return {
+        _id: chatData._id,
+        message: chatData.message,
+        sender_id: chatData.sender_id,
+        receiver_id: chatData.receiver_id,
+        date: chatData.date
+    }
+}
