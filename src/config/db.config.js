@@ -1,6 +1,7 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
-require('dotenv').config({ path: '.env' });
+import { MongoClient, ServerApiVersion } from 'mongodb';
+import dotenv from 'dotenv';
 
+dotenv.config({ path: '.env' });
 const uri = process.env.DBMONGO;
 
 //Create the client
@@ -38,4 +39,4 @@ process.on('SIGINT', async () => {
   process.exit(0);
 });
 
-module.exports = { connect };
+export default connect;
