@@ -1,7 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-require('dotenv').config({path: '.env'})
+import express from 'express';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 
+dotenv.config({ path: '.env' });
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -17,5 +18,5 @@ app.listen(port, (error) => {
         console.log('Error starting the server', error);
     }
     console.log('Server is running on port', port);
-})
+});
 
