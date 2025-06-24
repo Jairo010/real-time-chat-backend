@@ -1,138 +1,137 @@
 # 💬 Real-time Chat
 
-Una aplicación de chat en tiempo real construida con Node.js, Express, Socket.IO y MongoDB. Permite a los usuarios comunicarse instantáneamente a través de mensajes en tiempo real con autenticación JWT.
+A real-time chat application built with Node.js, Express, Socket.IO, and MongoDB. Allows users to communicate instantly through real-time messages with JWT authentication.
 
-## 🚀 Características
+## 🚀 Features
 
-- ✅ **Mensajería en tiempo real** usando WebSockets (Socket.IO)
-- 🔐 **Autenticación segura** con JWT (JSON Web Tokens)
-- 💾 **Base de datos persistente** con MongoDB y Mongoose
-- 👥 **Gestión de usuarios** completa (registro, login, perfil)
-- 💬 **Sistema de conversaciones** organizadas
-- 🏗️ **Arquitectura modular** con separación clara de responsabilidades
-- 🔄 **API RESTful** bien estructurada
+- ✅ **Real-time messaging** using WebSockets (Socket.IO)
+- 🔐 **Secure authentication** with JWT (JSON Web Tokens)
+- 💾 **Persistent database** with MongoDB and Mongoose
+- 👥 **Complete user management** (register, login, profile)
+- 💬 **Organized conversation system**
+- 🏗️ **Modular architecture** with clear separation of concerns
+- 🔄 **Well-structured RESTful API**
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Technologies Used
 
 - **Backend:** Node.js + Express.js
-- **Base de datos:** MongoDB + Mongoose
-- **Tiempo real:** Socket.IO
-- **Autenticación:** JWT (jsonwebtoken)
-- **Variables de entorno:** dotenv
+- **Database:** MongoDB + Mongoose
+- **Real-time:** Socket.IO
+- **Authentication:** JWT (jsonwebtoken)
+- **Environment variables:** dotenv
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 Real-time_Chat/
-├── index.js                    # Punto de entrada principal
-├── package.json               # Dependencias y scripts
+├── index.js                    # Main entry point
+├── package.json               # Dependencies and scripts
 ├── src/
 │   ├── config/
-│   │   └── db.config.js       # Configuración de base de datos
-│   │   └── config.js          # Configuración general
-│   ├── controllers/           # Lógica de controladores
+│   │   └── db.config.js       # Database configuration
+│   ├── controllers/           # Controller logic
 │   │   ├── chat.controller.js
 │   │   ├── conversation.controller.js
 │   │   └── user.controller.js
-│   ├── models/                # Modelos de datos
+│   ├── models/                # Data models
 │   │   ├── chat.model.js
 │   │   ├── conversation.model.js
 │   │   └── user.model.js
-│   ├── routes/                # Definición de rutas API
+│   ├── routes/                # API route definitions
 │   │   ├── chat.routes.js
 │   │   ├── conversation.routes.js
 │   │   └── user.routes.js
-│   ├── services/              # Lógica de negocio
+│   ├── services/              # Business logic
 │   │   ├── chats.services.js
 │   │   ├── conversations.services.js
 │   │   └── users.services.js
-│   └── websocket/             # Configuración WebSocket
-│       ├── handlers.js        # Manejadores de eventos
-│       ├── middlewares.js     # Middlewares de autenticación
-│       └── server.js          # Servidor WebSocket
-└── tests/                     # Directorio de pruebas
+│   └── websocket/             # WebSocket configuration
+│       ├── handlers.js        # Event handlers
+│       ├── middlewares.js     # Authentication middlewares
+│       └── server.js          # WebSocket server
+└── tests/                     # Test directory
 ```
 
-## 🔧 Instalación
+## 🔧 Installation
 
-### Prerrequisitos
+### Prerequisites
 
-- **Node.js** (versión 14 o superior)
-- **MongoDB** (instalado localmente o conexión remota)
-- **npm** o **yarn**
+- **Node.js** (version 14 or higher)
+- **MongoDB** (installed locally or remote connection)
+- **npm** or **yarn**
 
-### Pasos de instalación
+### Installation Steps
 
-1. **Clona el repositorio:**
+1. **Clone the repository:**
    ```bash
-   git clone <url-del-repositorio>
+   git clone <repository-url>
    cd Real-time_Chat
    ```
 
-2. **Instala las dependencias:**
+2. **Install dependencies:**
    ```bash
    npm install
    ```
 
-3. **Configura las variables de entorno:**
+3. **Configure environment variables:**
    
-   Crea un archivo `.env` en la raíz del proyecto:
+   Create a `.env` file in the project root:
    ```env
    PORT=3000
    MONGODB_URI=mongodb://localhost:27017/realtime_chat
-   JWT_SECRET=tu_jwt_secret_muy_seguro
+   JWT_SECRET=your_very_secure_jwt_secret
    ```
 
-4. **Inicia MongoDB:**
+4. **Start MongoDB:**
    ```bash
-   # Si tienes MongoDB instalado localmente
+   # If you have MongoDB installed locally
    mongod
    ```
 
-5. **Ejecuta la aplicación:**
+5. **Run the application:**
    ```bash
    npm start
    ```
 
-La aplicación estará disponible en `http://localhost:3000`
+The application will be available at `http://localhost:3000`
 
-## 🎯 Uso
+## 🎯 Usage
 
 ### API Endpoints
 
-#### Usuarios
-- `POST /users/register` - Registrar nuevo usuario
-- `POST /users/login` - Iniciar sesión
-- `GET /users/profile` - Obtener perfil del usuario
-- `PUT /users/profile` - Actualizar perfil
+#### Users
+- `POST /users/register` - Register new user
+- `POST /users/login` - Login
+- `GET /users/profile` - Get user profile
+- `PUT /users/profile` - Update profile
 
-#### Conversaciones
-- `GET /conversations` - Obtener conversaciones del usuario
-- `POST /conversations` - Crear nueva conversación
-- `GET /conversations/:id` - Obtener conversación específica
+#### Conversations
+- `GET /conversations` - Get user conversations
+- `POST /conversations` - Create new conversation
+- `GET /conversations/:id` - Get specific conversation
 
 #### Chats
-- `GET /chats/:conversationId` - Obtener mensajes de una conversación
-- `POST /chats` - Enviar nuevo mensaje
+- `GET /chats/:conversationId` - Get messages from a conversation
+- `POST /chats` - Send new message
 
 ### WebSocket Events
 
-#### Cliente → Servidor
-- `chat message` - Enviar mensaje en tiempo real
+#### Client → Server
+- `chat message` - Send real-time message
 
-#### Servidor → Cliente
-- `chat message` - Recibir mensaje en tiempo real
-- `user connected` - Notificación de usuario conectado
-- `user disconnected` - Notificación de usuario desconectado
+#### Server → Client
+- `chat message` - Receive real-time message
+- `user connected` - User connected notification
+- `user disconnected` - User disconnected notification
 
-## 🔐 Autenticación
+## 🔐 Authentication
 
-El sistema utiliza JWT para la autenticación. Para acceder a las rutas protegidas:
+The system uses JWT for authentication. To access protected routes:
 
-1. Registra un usuario o inicia sesión
-2. Incluye el token JWT en el header `Authorization`:
+1. Register a user or login
+2. Include the JWT token in the `Authorization` header:
    ```
-   Authorization: Bearer <tu_jwt_token>
+   Authorization: Bearer <your_jwt_token>
    ```
 
 ## 🧪 Testing
@@ -141,33 +140,25 @@ El sistema utiliza JWT para la autenticación. Para acceder a las rutas protegid
 npm test
 ```
 
-## 🤝 Contribución
+## 🤝 Contributing
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/nueva-caracteristica`)
-3. Commit tus cambios (`git commit -m 'Añadir nueva característica'`)
-4. Push a la rama (`git push origin feature/nueva-caracteristica`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia ISC.
-
-## 👨‍💻 Autor
-
-**Jairo Freire**
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -m 'Add new feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Open a Pull Request
 
 ---
 
-## 🚀 Próximas Características
+## 🚀 Upcoming Features
 
-- [ ] Notificaciones push
-- [ ] Envío de archivos multimedia
-- [ ] Salas de chat temáticas
-- [ ] Estado de usuarios (en línea/desconectado)
-- [ ] Historial de mensajes paginado
-- [ ] Reacciones a mensajes
+- [ ] Push notifications
+- [ ] Multimedia file sharing
+- [ ] Themed chat rooms
+- [ ] User status (online/offline)
+- [ ] Paginated message history
+- [ ] Message reactions
 
 ---
 
-¿Tienes alguna pregunta o sugerencia? ¡No dudes en abrir un issue! 🎉
+Got any questions or suggestions? Feel free to open an issue! 🎉
